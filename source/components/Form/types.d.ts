@@ -1,7 +1,5 @@
 import { FunctionComponent, ReactNode } from 'react';
 
-import * as STATUSES from 'CONSTANTS/status';
-
 import {
   InputProps,
   NumberInputProps,
@@ -12,6 +10,7 @@ import FormEmpty from './states/FormEmpty';
 import FormFailure from './states/FormFailure';
 // import FormLoading from './states/FormLoading';
 import FormSuccess from './states/FormSuccess';
+import { FormStatus } from 'API/hooks/forms';
 
 // Form Config
 export interface FormConfigType extends FormType {
@@ -50,7 +49,7 @@ export interface FormSection extends DivType {
 export interface FormStateProps<P = FormProps> extends DivType {
   description?: string;
   id: string;
-  status: string;
+  status: FormStatus;
   title?: string;
   viewState?: P extends FormProps ? P : never;
 }

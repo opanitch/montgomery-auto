@@ -2,11 +2,13 @@ import React, { FunctionComponent } from 'react';
 import { NavLink } from 'react-router-dom';
 import classnames from 'classnames';
 
+import shopSign from 'ASSETS/images/shop-sign.jpg';
 import mainNavItems from 'CONFIG/main-nav';
 
-import { Header, Link, List, ListItem } from 'Atoms';
+import { Link, List, ListItem } from 'Atoms';
 
 import { FullWidthContainer } from 'Components';
+import { Routes } from 'API/config/site-map';
 
 const SiteHeader: FunctionComponent<DivType> = ({
   className: parentClasses,
@@ -17,13 +19,14 @@ const SiteHeader: FunctionComponent<DivType> = ({
     >
       {({ ChildContainer }) => (
         <ChildContainer>
-          <header className="flex items-end justify-between mb-4 h-100">
-            <div className="p-2 bg-red-700">
-              <Header
-                className="mb-2 text-white text-scale-8 font-logo"
-                headerLevel={1}
-                title="Montgomery Auto"
-              />
+          <header
+            className="flex items-end justify-between"
+            style={{ height: '150px' }}
+          >
+            <div className="h-full p-2">
+              <NavLink to={Routes.HOME}>
+                <img className="h-full" src={shopSign} alt="Montgomery Auto" />
+              </NavLink>
             </div>
             {/* <div className="flex flex-col justify-end h-full"> */}
             <nav className="flex flex-col items-end">

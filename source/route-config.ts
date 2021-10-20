@@ -1,7 +1,5 @@
 import { FunctionComponent } from 'react';
-
-import * as ROUTES from 'CONSTANTS/routes';
-
+import { Routes } from 'CONFIG/site-map';
 import * as PAGES from 'Pages';
 
 type RouteType = {
@@ -16,15 +14,15 @@ export interface RouteConfigType extends RouteType {
 const routeConfig: RouteConfigType[] = [
   {
     component: PAGES.CONTACT,
-    path: ROUTES.CONTACT,
+    path: Routes.CONTACT,
   },
   {
     component: PAGES.HOMEPAGE,
-    path: ROUTES.HOME,
+    path: Routes.HOME,
   },
   {
     component: PAGES.NOT_FOUND,
-    path: ROUTES.NOT_FOUND,
+    path: Routes.NOT_FOUND,
   },
 ];
 

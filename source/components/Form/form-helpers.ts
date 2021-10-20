@@ -1,5 +1,4 @@
 import * as NODE_NAMES from 'CONSTANTS/node-names';
-import * as REGEX_NAMES from 'CONSTANTS/regex';
 
 type FormValuesType = {
   [key: string]: string;
@@ -7,36 +6,44 @@ type FormValuesType = {
 
 export type FormInputsType = HTMLInputElement | HTMLTextAreaElement;
 
-interface RegexDictionaryEntry {
-  flags: string;
-  pattern: string;
+export enum RegexType {
+  EMAIL = 'EMAIL',
+  NAME = 'NAME',
+  PHONE = 'PHONE',
 }
 
-type RegexDictionaryType = Record<string, RegexDictionaryEntry>;
-
-export const RegexDictionary: RegexDictionaryType = {
+interface RegExpConstructorArgs {
+  pattern: string;
+  flags?: string;
+}
+export const dictionary: Map<RegexType, RegExpConstructorArgs> = new Map();
+dictionary.set(RegexType.EMAIL, {
+  flags: 'g',
   /* eslint-disable-next-line */
-  [REGEX_NAMES.EMAIL]: {
-    flags: 'g',
-    pattern: `^([^<>()\\[\\]\\.,;:\\s@"](.[^<>()\\[\\]\\.,;:\\s@"]+)*)@(([a-zA-Z\\-0-9]+)\\.[a-zA-Z]{2,})$`,
-  },
-  [REGEX_NAMES.NAME]: {
-    flags: 'gu',
-    pattern: `^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$`,
-  },
+  pattern: `/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/`,
+});
+dictionary.set(RegexType.NAME, {
+  flags: 'gu',
+  pattern: `/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u`,
+});
+dictionary.set(RegexType.PHONE, {
+  flags: 'g',
   /* eslint-disable-next-line */
-  [REGEX_NAMES.PHONE]: {
-    flags: 'g',
-    pattern: `^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]?\\d{4}$`,
-  },
-};
+  pattern: `/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/`,
+});
 
 export const createRegExp = (key: string, flags = ''): RegExp => {
-  if (key.charAt(0) === '/') return new RegExp(key, flags);
+  if (key.charAt(0) === '/') return new RegExp(key);
 
-  const RegEx = RegexDictionary[key];
+  const dictionaryKey = dictionary.get(key as RegexType);
 
-  return RegEx && new RegExp(RegEx.pattern, RegEx.flags);
+  return new RegExp(
+    (dictionaryKey &&
+      (dictionaryKey.pattern, (!!flags && flags) || dictionaryKey?.flags)) ||
+      /* eslint-disable-next-line */
+      (!!flags && (key, flags)) ||
+      key
+  );
 };
 
 export const getFormDefaultValues = (form: HTMLFormElement): FormValuesType => {
@@ -71,10 +78,10 @@ export const getFormValues = (form: HTMLFormElement): FormValuesType => {
   );
 };
 
-export const getRegExp = (
-  entryName: UnionOf<typeof REGEX_NAMES>
-): RegexDictionaryEntry => {
-  const RegEx = RegexDictionary[entryName];
+export const getRegExpPattern = (
+  key: RegexType
+): RegExpConstructorArgs['pattern'] | undefined => {
+  const dictionaryKey = dictionary.get(key as RegexType);
 
-  return { ...RegEx };
+  return dictionaryKey && dictionaryKey.pattern;
 };

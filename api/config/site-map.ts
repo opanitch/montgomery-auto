@@ -1,5 +1,14 @@
-import * as PAGE_NAMES from '../constants/page-names';
-import * as ROUTES from '../constants/routes';
+export enum PageNames {
+  CONTACT = 'contact',
+  HOME = 'home',
+  NOT_FOUND = '404',
+}
+
+export enum Routes {
+  CONTACT = '/contact',
+  HOME = '/',
+  NOT_FOUND = '/404',
+}
 
 interface SiteMap<K, V> extends Map<K, V> {
   get: (pageName: K) => V;
@@ -10,20 +19,17 @@ interface SiteMapPageConfig {
   path: string;
 }
 
-const siteMap: SiteMap<
-  UnionOf<typeof PAGE_NAMES>,
-  SiteMapPageConfig
-> = new Map();
+const siteMap: SiteMap<PageNames, SiteMapPageConfig> = new Map();
 
 // Order doesn't matter here other than for organization
 siteMap
-  .set(PAGE_NAMES.HOME, {
+  .set(PageNames.HOME, {
     pageTitle: '{{@ cms.home.title @}}',
-    path: ROUTES.HOME,
+    path: Routes.HOME,
   })
-  .set(PAGE_NAMES.NOT_FOUND, {
+  .set(PageNames.NOT_FOUND, {
     pageTitle: '{{@ cms.not-found.title @}}',
-    path: ROUTES.NOT_FOUND,
+    path: Routes.NOT_FOUND,
   });
 
 export default siteMap;

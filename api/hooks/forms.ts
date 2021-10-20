@@ -1,32 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 
-import * as STATUSES from 'CONSTANTS/status';
+export enum FormStatus {
+  EMPTY = 'EMPTY',
+  ERROR = 'ERROR',
+  LOADING = 'LOADING',
+  READY = 'READY',
+  SUCCESS = 'SUCCESS',
+}
 
-type Statuses = UnionOf<typeof STATUSES>;
+interface FormStatusAction {
+  status: FormStatus;
+  updateFormStatus: (status: FormStatus) => void;
+}
 
-export const useFormStatus = (): Statuses => {
-  const [formStatus, setFormStatus] = useState(STATUSES.EMPTY);
+export const useFormStatus = (): FormStatusAction => {
+  const [formStatus, setFormStatus] = useState(FormStatus.EMPTY);
 
-  useEffect(() => {
-    const updateFormStatus = ({ detail }: CustomEvent) => {
-      const { status } = detail;
+  const updateFormStatus = useCallback((status) => setFormStatus(status), []);
 
-      setFormStatus(status);
-    };
-
-    window.addEventListener('formStatus', (e) =>
-      updateFormStatus(e as CustomEvent)
-    );
-
-    return () =>
-      window.removeEventListener('formStatus', (e) =>
-        updateFormStatus(e as CustomEvent)
-      );
-  }, []);
-
-  return formStatus as Statuses;
-};
-
-export const createFormStatusEvent = (status: Statuses): CustomEvent => {
-  return new CustomEvent('formStatus', { detail: { status } });
+  return {
+    status: formStatus as FormStatus,
+    updateFormStatus,
+  };
 };

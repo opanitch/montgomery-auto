@@ -5,24 +5,22 @@ const colors = require('tailwindcss/colors');
   A function that returns a Tailwind plugin that will add
   CSS based on Tailwind config keys.
 */
-const addUtilitiesFromConfig = (name, classPrefix = `${name}-`) => ({
-  addUtilities,
-  config,
-  e,
-}) => {
-  const settings = config(`theme.${name}`, {});
+const addUtilitiesFromConfig =
+  (name, classPrefix = `${name}-`) =>
+  ({ addUtilities, config, e }) => {
+    const settings = config(`theme.${name}`, {});
 
-  Object.keys(settings).forEach((setting) => {
-    const className = e(`${classPrefix}${setting}`);
+    Object.keys(settings).forEach((setting) => {
+      const className = e(`${classPrefix}${setting}`);
 
-    addUtilities(
-      {
-        [`.${className}`]: settings[setting],
-      },
-      config(`variants.${name}`, {})
-    );
-  });
-};
+      addUtilities(
+        {
+          [`.${className}`]: settings[setting],
+        },
+        config(`variants.${name}`, {})
+      );
+    });
+  };
 
 /*
   Translates a px to rem with a default base of 16.

@@ -1,18 +1,18 @@
 {
   "author": "Oren Panitch",
-  "name": "portfolio",
+  "name": "montgomery-auto",
   "version": "1.0.0",
-  "description": "Public repo housing pre-build of portfolio site.",
+  "description": "Public website for the Montgomery Automotive shop in Glenside Pennsylvania",
   "keywords": [],
-  "homepage": "https://github.com/opanitch/portfolio#readme",
+  "homepage": "https://github.com/opanitch/montgomery-auto#readme",
   "license": "ISC",
   "main": "index.js",
   "bugs": {
-    "url": "https://github.com/opanitch/portfolio/issues"
+    "url": "https://github.com/opanitch/montgomery-auto/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/opanitch/portfolio.git"
+    "url": "git+https://github.com/opanitch/montgomery-auto.git"
   },
   "scripts": {
     "clean-build-folder": "ls public/ | grep -v index.html | xargs -I{} rm -rf public/{}",
@@ -76,6 +76,7 @@
     "webpack-virtual-modules": "^0.4.2"
   },
   "dependencies": {
+    "@material-design-icons/svg": "^0.10.0",
     "classnames": "^2.2.6",
     "dotenv": "^8.2.0",
     "emailjs-com": "^2.6.4",

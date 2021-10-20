@@ -1,4 +1,4 @@
-import * as REGEX_NAMES from 'CONSTANTS/regex';
+import { RegexType } from 'Components/Form/form-helpers';
 
 export type LabelProps = JSX.IntrinsicElements['label'] & {
   htmlFor: string;
@@ -12,7 +12,7 @@ export type InputProps = JSX.IntrinsicElements['input'] & {
   id: string;
   labelPosition?: string;
   labelText?: string;
-  regex?: UnionOf<typeof REGEX_NAMES>;
+  regex?: RegexType;
   type: 'text' | 'email' | 'tel';
 };
 

@@ -1,12 +1,11 @@
 import React, { FunctionComponent } from 'react';
 
-import * as STATUSES from 'CONSTANTS/status';
-
 import EmptyView from './states/FormEmpty';
 import FailedView from './states/FormFailure';
 // import LoadingView from './FormLoading';
 import SuccessView from './states/FormSuccess';
 import { FormStateProps, FormStateSwitcher } from './types';
+import { FormStatus } from 'API/hooks/forms';
 
 export const FormSwitcher = <Props extends FormStateProps<any>>({
   FormEdit,
@@ -19,15 +18,15 @@ export const FormSwitcher = <Props extends FormStateProps<any>>({
     const { status } = props;
 
     switch (status) {
-      case STATUSES.EMPTY:
+      case FormStatus.EMPTY:
         return <FormEmpty {...props} />;
-      case STATUSES.ERROR:
+      case FormStatus.ERROR:
         return <FormFailure {...props} />;
-      // case STATUSES.LOADING:
+      // case FormStatus.LOADING:
       //   return <FormLoading {...props} />;
-      case STATUSES.READY:
+      case FormStatus.READY:
         return <FormEdit {...props} />;
-      case STATUSES.SUCCESS:
+      case FormStatus.SUCCESS:
         return <FormSuccess {...props} />;
       default:
         return <FormEmpty {...props} />;

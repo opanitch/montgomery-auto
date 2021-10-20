@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import classnames from 'classnames';
 
-import { CONTACT } from 'API/constants/page-names';
+import { PageNames } from 'API/config/site-map';
 
 import { FullWidthContainer } from 'Components';
 import { Card } from 'Atoms';
@@ -13,7 +13,7 @@ const ContactPage: FunctionComponent<Page> = ({
 }) => {
   return (
     <FullWidthContainer
-      id={CONTACT}
+      id={PageNames.CONTACT}
       className={classnames('pb-5 bg-center bg-no-repeat', parentClasses)}
     >
       {({ ChildContainer }) => (

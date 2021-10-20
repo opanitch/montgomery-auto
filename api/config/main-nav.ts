@@ -1,5 +1,4 @@
-import * as PAGE_NAMES from '../constants/page-names';
-import * as ROUTES from '../constants/routes';
+import { PageNames, Routes } from './site-map';
 
 interface NavItemType {
   href: string;
@@ -10,13 +9,13 @@ interface NavItemType {
 // IMPORTANT: Order matters here
 const mainNavItems: NavItemType[] = [
   {
-    href: ROUTES.HOME,
-    id: PAGE_NAMES.HOME,
+    href: Routes.HOME,
+    id: PageNames.HOME,
     text: `{{@ cms.site.navigation.home @}}`,
   },
   // {
   //   href: ROUTES.PORTFOLIO,
-  //   id: PAGE_NAMES.PORTFOLIO,
+  //   id: PageNames.PORTFOLIO,
   //   text: `{{@ cms.site.navigation.portfolio @}}`,
   // },
 ];

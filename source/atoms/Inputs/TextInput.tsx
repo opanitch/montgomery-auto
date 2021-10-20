@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState } from 'react';
 import classnames from 'classnames';
 
-import { getRegExp } from 'Components/Form/form-helpers';
+import { getRegExpPattern } from 'Components/Form/form-helpers';
 
 import Label from './Label';
 import { InputProps } from './types';
@@ -25,7 +25,7 @@ const TextInput: FunctionComponent<InputProps> = ({
   type = 'text',
   ...props
 }) => {
-  const RegExpPattern = pattern || (regex && getRegExp(regex)?.pattern);
+  const RegExpPattern = pattern || (regex && getRegExpPattern(regex));
   const [error, showError] = useState(false);
 
   return (
