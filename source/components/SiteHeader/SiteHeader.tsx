@@ -2,12 +2,14 @@ import React, { FunctionComponent } from 'react';
 import { NavLink } from 'react-router-dom';
 import classnames from 'classnames';
 
+import Phone from '@material-design-icons/svg/filled/local_phone.svg';
+
 import shopSign from 'ASSETS/images/shop-sign.jpg';
 import mainNavItems from 'CONFIG/main-nav';
 
 import { Link, List, ListItem } from 'Atoms';
 
-import { FullWidthContainer } from 'Components';
+import { FullWidthContainer, StoreHours } from 'Components';
 import { Routes } from 'API/config/site-map';
 
 const SiteHeader: FunctionComponent<DivType> = ({
@@ -32,13 +34,14 @@ const SiteHeader: FunctionComponent<DivType> = ({
             <nav className="flex flex-col items-end">
               <div className="mb-3">
                 <Link
-                  className="block p-2 border-white rounded-md text-scale-n1 border-1"
-                  href="https://github.com/opanitch/portfolio"
+                  className="flex justify-center border-white rounded-md text-scale-n1 border-1"
+                  href="tel:+12155769305"
                   target="_blank"
                 >
-                  See on{' '}
-                  {/* <GitHubIcon className="inline-block fill-current text-scale-3" /> */}
+                  <Phone className="mr-1" />
+                  (215) 576-9305
                 </Link>
+                <StoreHours />
               </div>
               <List
                 className="flex leading-none border-white font-coffee text-scale-6 pl-50 md:pl-100 border-b-1"
